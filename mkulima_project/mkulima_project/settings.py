@@ -29,7 +29,8 @@ SECRET_KEY = 'exhlfdat&vfum(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+#heroku app name given
+ALLOWED_HOSTS = ['mkulima-wetu.herokuapp.com']
 
 
 # Application definition
@@ -83,11 +84,15 @@ WSGI_APPLICATION = 'mkulima_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #use postgres instead of 
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': 'ciba',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #use postgres instead of db.lite#, credentials from heroku
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd4c0qsueqgeatj',
+        'USER': 'ylyxjbcirjskok',
+        'PASSWORD': 'e15343bd9a460623ba6102814ab6ef6c7ada135e02b78dbffcd1fd6950d95c10',
+        'HOST': 'ec2-34-194-123-31.compute-1.amazonaws.com'
+
     }
 }
 
@@ -132,7 +137,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 #necessaey for heroku
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE =  'django.contrib.staticfiles.storage.StaticFilesStorage' 
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
