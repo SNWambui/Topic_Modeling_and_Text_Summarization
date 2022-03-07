@@ -1,7 +1,7 @@
 # Distribution / packaging
 .Python
-venv/
-env/
+.venv/
+.env/
 django/
 *.sqlite3
 .idea/
