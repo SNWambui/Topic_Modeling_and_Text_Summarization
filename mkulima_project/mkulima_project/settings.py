@@ -17,17 +17,39 @@ import environ
 import django_heroku 
 import dj_database_url
 import dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+sentry_sdk.init(
+    dsn= env('dsn'),
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
+
+
+
+
+
 
 # Raises Django's ImproperlyConfigured
 # exception if SECRET_KEY not in os.environ
@@ -38,7 +60,6 @@ DEBUG = env('DEBUG')
 
 #heroku app name given
 ALLOWED_HOSTS = ['mkulima-wetu.herokuapp.com']
-
 
 # Application definition
 
@@ -168,7 +189,7 @@ django_heroku.settings(locals())
 
 #HTTPS settings
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_SECONDS = os.getenv('HSTS_SECONDS')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
