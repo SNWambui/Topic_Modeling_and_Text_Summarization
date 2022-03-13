@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+import os
+from django.conf import settings
 
 
 class Profile(models.Model):
@@ -15,7 +17,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+        img = Image.open(os.path.join(settings.MEDIA_ROOT, self.image.path))
 
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
