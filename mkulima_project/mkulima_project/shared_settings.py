@@ -20,6 +20,8 @@ import dotenv
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+from mkulima_project.mkulima_project.settings import ALLOWED_HOSTS
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,19 +34,19 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
-# sentry_sdk.init(
-#     dsn= env('dsn'),
-#     integrations=[DjangoIntegration()],
+sentry_sdk.init(
+    dsn= env('dsn'),
+    integrations=[DjangoIntegration()],
 
-#     # Set traces_sample_rate to 1.0 to capture 100%
-#     # of transactions for performance monitoring.
-#     # We recommend adjusting this value in production.
-#     traces_sample_rate=1.0,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
 
-#     # If you wish to associate users to errors (assuming you are using
-#     # django.contrib.auth) you may enable sending PII data.
-#     send_default_pii=True
-# )
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 
 # Raises Django's ImproperlyConfigured
@@ -52,12 +54,11 @@ env = environ.Env(
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env('DEBUG')
-DEBUG = True
+DEBUG = env('DEBUG')
 
 #heroku app name given
+#ALLOWED_HOSTS = ['mkulima-wetu.herokuapp.com', 'localhost:8000', '127.0.0.1:8000']
 ALLOWED_HOSTS = ['*']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -71,14 +72,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_heroku',
-    'django.contrib.sites',
 
     # authentication and logins
-    # 'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', # for Google OAuth 2.0con
+    'allauth.socialaccount.providers.google', # for Google OAuth 2.0
 ]
 
 MIDDLEWARE = [
@@ -190,16 +189,16 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 #heroku hosting requirement
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 #HTTPS settings
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_HSTS_SECONDS = os.getenv('HSTS_SECONDS')
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_SECONDS = os.getenv('HSTS_SECONDS')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # backend and configurantion settings for authentication
 AUTHENTICATION_BACKENDS = [
@@ -228,5 +227,3 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-#AUTH_USER_MODEL = 'mkulima-project.CustomUser'

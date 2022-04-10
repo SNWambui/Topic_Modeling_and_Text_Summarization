@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 {% block content %}
     <div class="content-section">
         <form method="POST">
@@ -14,6 +15,13 @@
                     <a href="{% url 'password_reset' %}">Forgot Password?</a>
                 </small>
             </div>
+            <div class="form-group">
+                {% if user.is_authenticated %}
+                <p>Welcome, You are logged in as {{ user.username }}</p>
+                {% else %}
+                <a href="{% provider_login_url 'google' %}">Login With Google</a>
+                {% endif %}
+            </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
@@ -21,4 +29,6 @@
             </small>
         </div>
     </div>
+    
+    
 {% endblock content %}
