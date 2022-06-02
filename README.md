@@ -18,7 +18,7 @@ The goal of this deep learning project is multi-part:
   - GPT3
   - XLNET models
   - Rouge score
-  - Extractive summarization with sentence ranking
+  - Extractive summarization with textrank, cosine similarity
 
 ## Sample Text and Summary with Deep Learning
 ### Text
