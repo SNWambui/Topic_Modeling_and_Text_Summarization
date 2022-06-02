@@ -7,18 +7,18 @@ The goal of this deep learning project is multi-part:
 
 ## Main Sections (highlights)
 1. Web scraping data from agricultural websites:
-  1. Beautifulsoup to with 'xml' and 'html' file formats
-  2. Created dataframe to store text
+  - Beautifulsoup to with 'xml' and 'html' file formats
+  - Created dataframe to store text
 2. Topic modeling to get the main topics in the websites
-  1. TFIDF: top n words and sentences, visualizing with word cloud
+  - TFIDF: top n words and sentences, visualizing with word cloud
   ![][wordcloud.png]
-  2. LDA: ranking topics by score
+  - LDA: ranking topics by score
 3. Summarization: abstractive and extractive using both shallow and deep learning models
-  1. BERT
-  2. GPT3
-  3. XLNET models
-  4. Rouge score
-  5. Extractive summarization with sentence ranking
+  - BERT
+  - GPT3
+  - XLNET models
+  - Rouge score
+  - Extractive summarization with sentence ranking
 
 ## Sample Text and Summary with Deep Learning
 ### Text
